@@ -12,7 +12,7 @@ DEV_FLAGS	:= -Wno-error=unused-parameter -Wno-error=unused-variable -Wno-error=u
 DLEVEL		:= -1
 SANI		:= 0
 DEBUG		:= 0
-DEV_COMPIL	:= 0
+DEV_COMPIL	:= 1
 
 ifeq ($(DEBUG), 1)
 	FLAGS += -g3
@@ -24,12 +24,16 @@ endif
 
 ifeq ($(DLEVEL), 0)
 	FLAGS += -D WDEBUG=DEBUG
+	FLAGS += -D LOG_ENABLED
 else ifeq ($(DLEVEL), 1)
 	FLAGS += -D WDEBUG=INFO
+	FLAGS += -D LOG_ENABLED
 else ifeq ($(DLEVEL), 2)
 	FLAGS += -D WDEBUG=WARN
+	FLAGS += -D LOG_ENABLED
 else ifeq ($(DLEVEL), 3)
 	FLAGS += -D WDEBUG=ERROR
+	FLAGS += -D LOG_ENABLED
 endif
 
 ifeq ($(OS),Windows_NT)
