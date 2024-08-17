@@ -8,10 +8,11 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"ms-vscode.cpptools"
+				"ms-vscode.cpptools-extension-pack",
+				"ms-vscode.makefile-tools"
 			]
 		}
-	}
+	},
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
@@ -20,7 +21,7 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "gcc -v",
+	"postCreateCommand": "gcc -v && gdb -v && ping -V"
 
 	// Configure tool-specific properties.
 	// "customizations": {},
