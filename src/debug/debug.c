@@ -33,7 +33,7 @@ int printf_ln(const char *color, const char *fmt, ...)
     vsnprintf(parameterBuffer, LOG_BUFFER_SIZE, fmt, params);
     va_end(params);
 
-    int ret = snprintf(outgoingBuffer, LOG_BUFFER_SIZE, "%s%s:%u %s(): %s%s", color, parameterBuffer, ANSI_COLOR_RESET "\n");
+    int ret = snprintf(outgoingBuffer, LOG_BUFFER_SIZE, "%s%s%s", color, parameterBuffer, ANSI_COLOR_RESET "\n");
     write(STDERR_FILENO, outgoingBuffer, LOG_BUFFER_SIZE);
     return ret;
 }
