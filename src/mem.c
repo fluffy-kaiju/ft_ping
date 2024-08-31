@@ -5,12 +5,12 @@
 #include <sys/resource.h>
 extern t_mem g_data;
 
-void mem_resize(void)
+void *mem_resize(void)
 {
 
     const int new_size = g_data.call_stack_size ? g_data.call_stack_size * 2 : MEM_DEFAULT_SIZE;
 
-    LOG_DEBUG("Try to resize mem call stack from %d to %d", g_data.call_stack_size, new_size)
+    LOG_DEBUG("Try to resize mem call stack from %d to %d", g_data.call_stack_size, new_size);
 
 #if LOG_ENABLED
     {
@@ -54,7 +54,10 @@ void mem_push_destroyer(t_destroy_function *func)
 {
     if ((g_data.call_stack_size + 1) > g_data.call_stack_size)
     {
-        mem_resize();
+        if (mem_resize() == NULL)
+        {
+            exit(-1);
+        }
     }
 }
 
