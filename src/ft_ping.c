@@ -3,7 +3,6 @@
 #include "args_parser.h"
 #include <stdlib.h>
 #include "mem.h"
-#include <string.h>
 
 /**
  * Global struc to keep track all alloc ptr. You should create a `_create()`
@@ -14,16 +13,22 @@ t_mem g_data;
 void init()
 {
     LOG_TRACE(NULL);
+    init_mem(&g_data);
     atexit(mem_cleanup);
-    bzero(&g_data, sizeof(g_data));
+}
+
+void test()
+{
+    LOG_WARNING("test123");
 }
 
 int main(int ac, char **av)
 {
-    LOG_TRACE("%s started with %d arg(s)", av[0], ac);
+    LOG_DEBUG("%s started with %d arg(s)", av[0], ac - 1);
 
-    // Init global mem variable
     init();
+    LOG_WARNING("%p", test);
+    mem_push_destroyer(&test);
 
     start_parsing(ac, av);
 

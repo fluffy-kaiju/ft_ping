@@ -10,12 +10,14 @@ int debug_printf_ln(const char *color, const char *fileName, const char *funcNam
 {
     char parameterBuffer[LOG_BUFFER_SIZE] = {0};
     char outgoingBuffer[LOG_BUFFER_SIZE] = {0};
-    va_list params;
+    if (fmt != NULL)
+    {
+        va_list params;
 
-    va_start(params, fmt);
-    vsnprintf(parameterBuffer, LOG_BUFFER_SIZE, fmt, params);
-    va_end(params);
-
+        va_start(params, fmt);
+        vsnprintf(parameterBuffer, LOG_BUFFER_SIZE, fmt, params);
+        va_end(params);
+    }
     int ret = snprintf(outgoingBuffer, LOG_BUFFER_SIZE, "%s%s:%u %s(): %s%s", color, fileName, lineNumber, funcName, parameterBuffer, ANSI_COLOR_RESET "\n");
     write(STDERR_FILENO, outgoingBuffer, LOG_BUFFER_SIZE);
     return ret;
@@ -27,12 +29,15 @@ int printf_ln(const char *color, const char *fmt, ...)
 {
     char parameterBuffer[LOG_BUFFER_SIZE] = {0};
     char outgoingBuffer[LOG_BUFFER_SIZE] = {0};
-    va_list params;
 
-    va_start(params, fmt);
-    vsnprintf(parameterBuffer, LOG_BUFFER_SIZE, fmt, params);
-    va_end(params);
+    if (fmt != NULL)
+    {
+        va_list params;
 
+        va_start(params, fmt);
+        vsnprintf(parameterBuffer, LOG_BUFFER_SIZE, fmt, params);
+        va_end(params);
+    }
     int ret = snprintf(outgoingBuffer, LOG_BUFFER_SIZE, "%s%s%s", color, parameterBuffer, ANSI_COLOR_RESET "\n");
     write(STDERR_FILENO, outgoingBuffer, LOG_BUFFER_SIZE);
     return ret;
